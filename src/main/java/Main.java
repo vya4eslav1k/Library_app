@@ -53,10 +53,8 @@ public class Main {
                 }
             } catch (IllegalArgumentException e) {
                 System.out.println("Unrecognized command");
-            } finally {
-                scanner.close();
             }
-
         }
+        scanner.close();
     }
 }

@@ -10,11 +10,7 @@ public class Library {
     private final List<Book> books = new ArrayList<>();
 
     public void addBook(Book book) {
-        if (!books.contains(book)) {
             books.add(book);
-        } else {
-            System.out.println("Duplicate book not added.");
-        }
     }
 
     public void removeBook(String title) {

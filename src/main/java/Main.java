@@ -1,4 +1,5 @@
 import enums.Commands;
+import enums.Genre;
 import model.Book;
 import service.Library;
 
@@ -18,7 +19,8 @@ public class Main {
                         \n
                         Write \'add\' for add Book
                         Write \'remove\' for Remove Book
-                        Write \'find\' for Search Book
+                        Write \'find\' for Find Book by title
+                        Write \'search\' for Search Book
                         Write \'list\' for List All Books
                         Write \'exit\' for Exit
                         """);
@@ -31,7 +33,7 @@ public class Main {
                         System.out.println("Enter author: ");
                         String author = scanner.nextLine();
                         System.out.println("Enter genre: ");
-                        String genre = scanner.nextLine();
+                        Genre genre = Genre.valueOf(scanner.nextLine().toUpperCase());
                         System.out.println("Enter year: ");
                         int year = Integer.parseInt(scanner.nextLine());
                         library.addBook(new Book(title, author, genre, year));
@@ -46,6 +48,19 @@ public class Main {
                         String searchTitle = scanner.nextLine();
                         List<Book> results = library.searchByTitle(searchTitle);
                         results.forEach(System.out::println);
+                    }
+                    case Commands.SEARCH -> {
+                        System.out.println("Enter title to search(or press ENTER to skip title): ");
+                        String searchTitle = scanner.nextLine();
+                        System.out.println("Enter author to search(or press ENTER to skip author): ");
+                        String searchAuthor = scanner.nextLine();
+                        System.out.println("Enter genre to search(or press ENTER to skip genre): ");
+                        String searchGenre = scanner.nextLine();
+                        Genre genreEnum = searchGenre.isEmpty() ? null : Genre.valueOf(searchGenre.toUpperCase());
+                        System.out.println("Enter year to search(or press ENTER to skip year): ");
+                        String searchYear = scanner.nextLine();
+                        Integer searchYearInteger = searchYear.isEmpty() ? null : Integer.parseInt(searchYear);
+                        library.search(searchTitle, searchAuthor, genreEnum, searchYearInteger).forEach(System.out::println);
                     }
                     case Commands.LIST -> library.listBooks().forEach(System.out::println);
                     case Commands.EXIT -> running = false;
